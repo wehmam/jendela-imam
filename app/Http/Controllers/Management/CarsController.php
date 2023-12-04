@@ -59,7 +59,7 @@ class CarsController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect(url("management"));
     }
 
     /**
@@ -100,8 +100,7 @@ class CarsController extends Controller
      */
     public function destroy($id)
     {
-        $response = CarRepository::delete($id);
-        dd($response);
+        return response()->json(CarRepository::delete($id));
     }
 
     public function listAjaxCars()  {

@@ -73,29 +73,3 @@
     </div>
 </div>
 @endsection
-@section("external-js")
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.js"></script>
-<script>
-    Dropzone.autoDiscover = false;
-    var myDropzone = new Dropzone("#my-dropzone", {
-        url: "#", // Replace with your upload route
-        autoProcessQueue: false,
-        maxFilesize: 2, // Max file size in MB
-        acceptedFiles: ".jpg, .jpeg, .png, .gif", // Allowed file types
-        addRemoveLinks: true,
-    });
-
-    myDropzone.on("addedfile", function (file) {
-        // Handle file added event (e.g., display a thumbnail)
-    });
-
-    myDropzone.on("removedfile", function (file) {
-        // Handle file removed event (if needed)
-    });
-
-    document.querySelector("#upload-button").addEventListener("click", function (e) {
-        e.preventDefault();
-        myDropzone.processQueue();
-    });
-</script>
-@endsection

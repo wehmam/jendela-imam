@@ -5,18 +5,19 @@
 @endsection
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">List Orders</h4>
+    <h4 class="fw-bold py-3 mb-4">List Orders  <span><a class="btn btn-sm btn-success" href="{{ url("management/orders/create") }}">Add Orders</a></span></h4>
     <div class="row">
         <div class="col">
             <div class="card">
                 <div class="table-responsive text-nowrap">
-                    <table class="table" id="table-cars">
+                    <table class="table" id="table-orders">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Cars Name</th>
                                 <th>Price</th>
-                                <th>Stock</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                     </table>
@@ -30,7 +31,7 @@
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script>
     $(function() {
-        var dataTable = $('#table-cars').DataTable({
+        var dataTable = $('#table-orders').DataTable({
             processing: true,
             serverSide: true,
             lengthChange: false,
@@ -40,7 +41,7 @@
             ordering: false,
             deferRender: true,
             ajax: {
-                'url' : `list-cars`,
+                'url' : `list-orders`,
             },
             responsive: {
                 details : {
@@ -50,7 +51,7 @@
             columnDefs: [{
                 className: 'text-center',
                 orderable: false,
-                targets: [0 , 1, 2, 3]
+                targets: [0 , 1, 2, 3, 4]
             }],
             drawCallback: function( settings ) {
                 $('html, body').animate({

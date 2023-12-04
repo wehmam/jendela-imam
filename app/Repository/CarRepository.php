@@ -3,12 +3,18 @@
 namespace App\Repository;
 
 use App\Models\Car;
+use App\Models\Order;
 use App\Models\OrderCar;
 use Illuminate\Support\Facades\DB;
 
 class CarRepository {
     public static function findCarById($id) {
         return Car::find($id);
+    }
+
+    public static function getAllCars() {
+        return Car::select("id", "name", "price")
+            ->get();
     }
 
     public static function delete($id) {
@@ -18,7 +24,7 @@ class CarRepository {
                 return responseCustom("Cars not found", [], false, 404);
             }
 
-            $orders = OrderCar::where("cars_id", $id)
+            $orders = Order::where("car_id", $id)
                 ->count();
 
             if ($orders > 0) {
@@ -72,7 +78,7 @@ class CarRepository {
                 $cars->each(function($q) use($arrayData) {
                     $arrayData->push([
                         $q->name ,
-                        $q->price,
+                        "Rp. " . nominalFormat($q->price),
                         $q->stock,
                         '
                             <div class="dropdown">
@@ -82,6 +88,8 @@ class CarRepository {
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="'.url("management/cars/$q->id/edit").'"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="deleteCars('.$q->id.')"><i class="bx bx-trash-alt me-2"></i> Delete</a>
+
                                 </div>
                             </div>
                         '

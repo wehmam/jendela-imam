@@ -23,6 +23,7 @@ Route::prefix('management')->group(function() {
     Route::middleware(['auth'])->group(function () {
         Route::get("/", [ManagementController::class, 'dashboard']);
         Route::get("list-cars", [CarsController::class, 'listAjaxCars']);
+        Route::get("list-orders", [OrdersController::class, 'listAjaxOrders']);
         Route::resource("cars", CarsController::class);
         Route::resource("orders", OrdersController::class);
     });

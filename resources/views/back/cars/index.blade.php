@@ -1,5 +1,5 @@
 @extends("back.layouts")
-@section('title', 'Products')
+@section('title', 'Cars')
 @section("external-css")
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 @endsection
@@ -60,7 +60,34 @@
                 $('[name=page]').val(settings.json.page);
             }
         })
-
     })
+
+    function deleteCars(id) {
+        $.ajax({
+            url: `${window.location.origin}/management/cars/${id}`,
+            type: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                Swal.fire(
+                    response.status == false ? "Opps!" : "Success!" ,
+                    response.message,
+                    response.status == false ? "error" : "success"
+                )
+
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            },
+            error: function(xhr) {
+                Swal.fire (
+                    "Opps!",
+                    xhr.responseText,
+                    error
+                )
+            }
+        });
+    }
 </script>
 @endsection

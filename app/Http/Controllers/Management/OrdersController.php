@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CarsRequest;
+use App\Http\Requests\OrdersRequest;
+use App\Repository\CarRepository;
+use App\Repository\OrderRepository;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -24,7 +28,8 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        //
+        $cars = CarRepository::getAllCars();
+        return view("back.orders.form" , compact("cars"));
     }
 
     /**
@@ -33,9 +38,16 @@ class OrdersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrdersRequest $request)
     {
-        //
+        $response = OrderRepository::orderCar();
+        if(!$response["status"]) {
+            alertNotify(false, $response["message"]);
+            return back()->withInput();
+        }
+
+        alertNotify(true, $response["message"]);
+        return redirect(url("management/orders"));
     }
 
     /**
@@ -46,7 +58,7 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -57,7 +69,7 @@ class OrdersController extends Controller
      */
     public function edit($id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -69,7 +81,7 @@ class OrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -80,6 +92,10 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        abort(404);
+    }
+
+    public function listAjaxOrders()  {
+        return response()->json(OrderRepository::ajaxCarsData());
     }
 }
