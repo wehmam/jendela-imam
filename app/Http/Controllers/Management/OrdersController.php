@@ -3,14 +3,9 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CarsRequest;
-use App\Models\Car;
-use App\Repository\AuthRepository;
-use App\Repository\CarRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class CarsController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +14,7 @@ class CarsController extends Controller
      */
     public function index()
     {
-        return view("back.cars.index");
+        return view("back.orders.index");
     }
 
     /**
@@ -29,7 +24,7 @@ class CarsController extends Controller
      */
     public function create()
     {
-        return view("back.cars.form");
+        //
     }
 
     /**
@@ -38,17 +33,9 @@ class CarsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CarsRequest $request)
+    public function store(Request $request)
     {
-        $response = CarRepository::createOrUpdateCars();
-
-        if(!$response["status"]) {
-            alertNotify(false, $response["message"]);
-            return back()->withInput();
-        }
-
-        alertNotify(true, $response["message"]);
-        return redirect(url("management/cars"));
+        //
     }
 
     /**
@@ -68,9 +55,9 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Car $car)
+    public function edit($id)
     {
-        return view("back.cars.form", compact("car"));
+        //
     }
 
     /**
@@ -80,16 +67,9 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CarsRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $response = CarRepository::createOrUpdateCars($id);
-        if(!$response["status"]) {
-            alertNotify(false, $response["message"]);
-            return back()->withInput();
-        }
-
-        alertNotify(true, $response["message"]);
-        return redirect(url("management/cars"));
+        //
     }
 
     /**
@@ -100,11 +80,6 @@ class CarsController extends Controller
      */
     public function destroy($id)
     {
-        $response = CarRepository::delete($id);
-        dd($response);
-    }
-
-    public function listAjaxCars()  {
-        return response()->json(CarRepository::ajaxCarsData());
+        //
     }
 }

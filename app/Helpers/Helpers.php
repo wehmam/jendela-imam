@@ -8,6 +8,16 @@ if (! function_exists('responseCustom')) {
     }
 }
 
+if(!function_exists("nominalFormat")) {
+    function nominalFormat($nominal = 0) {
+        if($nominal > 0) {
+            return number_format(round($nominal, 0), 0, ',', '.');
+        }
+
+        return $nominal;
+    }
+}
+
 if(! function_exists('alertNotify')){
     function alertNotify($isSuccess  = true, $message = ''){
         if($isSuccess){

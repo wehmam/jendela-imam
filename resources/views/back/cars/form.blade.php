@@ -10,94 +10,63 @@
         <!-- Inline text elements -->
         <div class="col">
             <div class="card mb-4">
-                <h5 class="card-header">Inline Text Elements</h5>
+                <h5 class="card-header mb-5">Add Cars</h5>
                 <div class="card-body">
-                    <div class="card mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                          <h5 class="mb-0 card-title">Media</h5>
-                          <a href="javascript:void(0);" class="fw-medium">Add media from URL</a>
-                        </div>
-                        <div class="card-body">
-                            <form action="#" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <!-- Product name, description, and other fields -->
+                    <form action="{{ Request::segment(3) == "create" ? url("management/cars") : url("management/cars/" . $car->id) }}" method="POST" >
+                        @csrf
+                        @if(Request::segment(3) != "create")
+                            <input type="hidden" name="_method" value="PUT">
+                        @endif
 
-                                <div class="form-group">
-                                    <label for="images">Product Images</label>
-                                    <div id="my-dropzone" class="dropzone"></div>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Save Product</button>
-                            </form>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-name">Cars Name</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control @error("name") is-invalid @enderror" id="basic-default-name" name="name" value="{{ $car->name ?? old("name") }}" placeholder="Brio RS" />
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                          </div>
                         </div>
-                      </div>
-                    {{-- <table class="table table-borderless">
-                        <tbody>
-                            <tr>
-                                <td class="align-middle"><small class="text-light fw-semibold">Text Highlight</small>
-                                </td>
-                                <td class="py-3">
-                                    <p class="mb-0">You can use the mark tag to <mark>highlight</mark> text.</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle"><small class="text-light fw-semibold">Deleted Text</small></td>
-                                <td class="py-3">
-                                    <p class="mb-0"><del>This line of text is meant to be treated as deleted text.</del>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><small class="text-light fw-semibold">No Longer Correct</small></td>
-                                <td class="py-3">
-                                    <p class="mb-0"><s>This line of text is meant to be treated as no longer
-                                            accurate.</s></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><small class="text-light fw-semibold">Addition</small></td>
-                                <td class="py-3">
-                                    <p class="mb-0">
-                                        <ins>This line of text is meant to be treated as an addition to the
-                                            document.</ins>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><small class="text-light fw-semibold">Underlined</small></td>
-                                <td class="py-3">
-                                    <p class="mb-0"><u>This line of text will render as underlined</u></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><small class="text-light fw-semibold">Fine Print</small></td>
-                                <td class="py-3">
-                                    <p class="mb-0"><small>This line of text is meant to be treated as fine
-                                            print.</small></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><small class="text-light fw-semibold">Bold Text</small></td>
-                                <td class="py-3">
-                                    <p class="mb-0"><strong>This line rendered as bold text.</strong></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><small class="text-light fw-semibold">Italicized Text</small></td>
-                                <td class="py-3">
-                                    <p class="mb-0"><em>This line rendered as italicized text.</em></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><small class="text-light fw-semibold">Abbreviations</small></td>
-                                <td>
-                                    <p><abbr title="attribute">attr</abbr></p>
-                                    <p class="mb-0"><abbr title="HyperText Markup Language"
-                                            class="initialism">HTML</abbr></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table> --}}
+
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-price">Price</label>
+                          <div class="col-sm-10">
+                            <input
+                              type="number"
+                              name="price"
+                              class="form-control @error("price") is-invalid @enderror"
+                              id="basic-default-price"
+                              placeholder="1000000"
+                              value="{{ $car->price ?? old("price") }}"
+                            />
+                            @error('price')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="basic-default-stock">Stock</label>
+                            <div class="col-sm-10">
+                              <input
+                                type="number"
+                                name="stock"
+                                class="form-control @error("stock") is-invalid @enderror"
+                                id="basic-default-stock"
+                                placeholder="10"
+                                value="{{ $car->stock ?? old("stock") }}"
+                              />
+                              @error('stock')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                          </div>
+                        </div>
+                      </form>
                 </div>
             </div>
         </div>

@@ -1,11 +1,11 @@
 @extends("back.layouts")
-@section('title', 'Products')
+@section('title', 'Orders')
 @section("external-css")
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 @endsection
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">List Cars <span><a class="btn btn-sm btn-success" href="{{ url("management/cars/create") }}">Add Cars</a></span> </h4>
+    <h4 class="fw-bold py-3 mb-4">List Orders</h4>
     <div class="row">
         <div class="col">
             <div class="card">

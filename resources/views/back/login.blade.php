@@ -63,7 +63,7 @@
                   <label for="email" class="form-label">Email</label>
                   <input
                     type="text"
-                    class="form-control @error("password") is-invalid @enderror"
+                    class="form-control @error("email") is-invalid @enderror"
                     id="email"
                     name="email"
                     placeholder="Enter your email"
@@ -106,5 +106,19 @@
     <script src="{{ asset("back/assets/js/main.js") }}"></script>
 
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const sessionStatus = "{{ Session::has('status') }}"
+        const sessionMessage = "{{ Session::get('status') }}"
+        const sessionClass = "{{ Session::get('alert-class') }}"
+
+        if (sessionStatus) {
+            Swal.fire(
+                sessionClass == "error" ? "Opps!" : "Success!",
+                sessionMessage,
+                sessionClass
+            )
+        }
+    </script>
   </body>
 </html>

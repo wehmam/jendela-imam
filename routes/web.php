@@ -3,6 +3,7 @@
 use App\Http\Controllers\Management\AuthController;
 use App\Http\Controllers\Management\CarsController;
 use App\Http\Controllers\Management\ManagementController;
+use App\Http\Controllers\Management\OrdersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('management')->group(function() {
     Route::get("login", [AuthController::class, 'login'])->name("login");
     Route::post("login", [AuthController::class, 'loginPost']);
-    // Route::middleware(['auth', 'role:super-admin'])->group(function () {
+    Route::middleware(['auth'])->group(function () {
         Route::get("/", [ManagementController::class, 'dashboard']);
+        Route::get("list-cars", [CarsController::class, 'listAjaxCars']);
         Route::resource("cars", CarsController::class);
-    // });
+        Route::resource("orders", OrdersController::class);
+    });
 });
