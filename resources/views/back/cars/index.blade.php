@@ -63,29 +63,41 @@
     })
 
     function deleteCars(id) {
-        $.ajax({
-            url: `${window.location.origin}/management/cars/${id}`,
-            type: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                Swal.fire(
-                    response.status == false ? "Opps!" : "Success!" ,
-                    response.message,
-                    response.status == false ? "error" : "success"
-                )
+        Swal.fire({
+            title: 'Delete',
+            text: 'Are you sure you want to delete this data?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Delete!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `${window.location.origin}/management/cars/${id}`,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            response.status == false ? "Opps!" : "Success!" ,
+                            response.message,
+                            response.status == false ? "error" : "success"
+                        )
 
-                setTimeout(function() {
-                    location.reload();
-                }, 1000);
-            },
-            error: function(xhr) {
-                Swal.fire (
-                    "Opps!",
-                    xhr.responseText,
-                    error
-                )
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    },
+                    error: function(xhr) {
+                        Swal.fire (
+                            "Opps!",
+                            xhr.responseText,
+                            error
+                        )
+                    }
+                });
             }
         });
     }
