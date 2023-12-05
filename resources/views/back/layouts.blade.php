@@ -117,6 +117,38 @@
                 sessionClass
             )
         }
+
+        function logout() {
+            Swal.fire({
+                title: 'Logout',
+                text: 'Are you sure you want to logout?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, logout!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `${window.location.origin}/management/logout`,
+                        type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function(xhr) {
+                            Swal.fire (
+                                "Opps!",
+                                xhr.responseText,
+                                error
+                            )
+                        }
+                    });
+                }
+            });
+        }
     </script>
     @yield('external-js')
   </body>

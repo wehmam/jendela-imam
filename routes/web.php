@@ -26,5 +26,6 @@ Route::prefix('management')->group(function() {
         Route::get("list-orders", [OrdersController::class, 'listAjaxOrders']);
         Route::resource("cars", CarsController::class);
         Route::resource("orders", OrdersController::class);
+        Route::post("logout", [AuthController::class ,'logout']);
     });
 });

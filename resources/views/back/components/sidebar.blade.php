@@ -58,7 +58,7 @@
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-item  {{ is_null(Request::segment(2))  ? "active" : ""  }}">
-            <a href="#" class="menu-link">
+            <a href="{{ url("management") }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>

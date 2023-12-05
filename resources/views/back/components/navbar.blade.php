@@ -48,10 +48,10 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <button class="dropdown-item" href="#" data-toggle="modal" onclick="logout()">
                             <i class="bx bx-power-off me-2"></i>
                             <span class="align-middle">Log Out</span>
-                        </a>
+                        </button>
                     </li>
                 </ul>
             </li>
@@ -74,7 +74,7 @@
          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
          <div class="modal-footer">
              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-             <form method="POST" action="{{ url('dashboard/logout') }}">
+             <form method="POST" action="{{ url('logout') }}">
                  @csrf
 
                  <button type="submit" class="btn btn-primary">
